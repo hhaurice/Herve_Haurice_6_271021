@@ -37,7 +37,7 @@ const errorHandler = error => {
   }
 };
 
-const server = http.createServer(app);
+const server = http.createServer(app); // on exporte le serveur sur app
 
 server.on('error', errorHandler);
 server.on('listening', () => {
@@ -46,4 +46,4 @@ server.on('listening', () => {
   console.log('Listening on ' + bind);
 });
 
-server.listen(port);
+server.listen(port); // Créé un listener sur le port

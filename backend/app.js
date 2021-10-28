@@ -6,7 +6,7 @@ const express = require("express");
 const mongoose = require("mongoose");
 const userRoutes = require("./routes/user");
 const sauceRoutes = require("./routes/sauce");
-const path = require("path")
+const path = require("path") // nous permets d'accéder au path de notre serveur
 
 const app = express();
 mongoose.connect("mongodb+srv://hhaurice:ocprojet6@cluster0.izb74.mongodb.net/myFirstDatabase?retryWrites=true&w=majority",
@@ -24,7 +24,7 @@ mongoose.connect("mongodb+srv://hhaurice:ocprojet6@cluster0.izb74.mongodb.net/my
 
 app.use(express.json())
 
-app.use("/images", express.static(path.join(__dirname, "images"))); // On sert ce dossier statique
+app.use("/images", express.static(path.join(__dirname, "images"))); // Indique qu'il faut gérer la ressources images de manière statique pour toute requête vers la route /images
 
 app.use("/api/auth", userRoutes);
 app.use("/api/", sauceRoutes);

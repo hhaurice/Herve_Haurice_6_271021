@@ -1,15 +1,15 @@
 "use strict";
 
 const Sauce = require("../models/Sauce");
-const fs = require("fs");
+const fs = require("fs"); // Module node.js permettant de gérer les fichiers sur l'ordinateur. Ici on l'utilisera pour supprimer le fichier dans la fonction deleteSauce
 
 exports.createSauce = (req, res, next) => {
-  const sauceObject = JSON.parse(req.body.sauce); // Nous permet de créer une chaîne de caractère
-  delete sauceObject._id;
+  const sauceObject = JSON.parse(req.body.sauce); // Nous permet de créer un objet javascript sous une chaîne de caractère qui nous permettra d'extraire l'objet json de sauce
+  delete sauceObject._id; // On supprime l'id créé automatiquement par Mongodb du corps de la requête
   const sauce = new Sauce({
       ...sauceObject,
       imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`
-  }); // req.protocol c'est http ou https, req.get host c'est le hors de notre serveur et req.file name pour le nom du fichier
+  }); // req.protocol c'est http ou https, req.get host c'est le host de notre serveur et req.file name pour le nom du fichier
   sauce.save()
     .then(() => res.status(201).json({message: "Votre sauce a été enregistrée"}))
     .catch(error => res.status(400).json({error: "Votre sauce n'a pas été enregistrée"}));
