@@ -1,3 +1,5 @@
+"use strict";
+
 const mongoose = require("mongoose");
 const uniqueValidator = require("mongoose-unique-validator"); // plugin pour s'assurer que les adresses email sont uniques
 

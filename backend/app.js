@@ -1,3 +1,5 @@
+"use strict";
+
 // Gère toutes les requêtes serveur
 
 const express = require("express");

@@ -1,3 +1,5 @@
+"use strict";
+
 const multer = require("multer");
 
 // Ci-dessous un dictionnaire qui va définir de créer l'extension du fichier dans const extension
