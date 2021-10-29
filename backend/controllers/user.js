@@ -5,8 +5,8 @@ const jwt = require("jsonwebtoken"); // plugin qui permet l'échange de données
 const User = require("../models/User"); // on importe notre modèle User.js
 
 exports.signup = (req, res, next) => {
-    bcrypt.hash(req.body.password, 10) // on appelle la fonction bcrypt pr saler le mot de passe 10 fois, cette fonction renvoie le hash généré
-      .then(hash => {
+    bcrypt.hash(req.body.password, 10) // on appelle la fonction bcrypt pr saler le mot de passe 10 fois, cette fonction renvoie le hash généré. Renforce la sécurité en ajoutant une info supplémentaire. Le sel ajoute une valeur aléatoire qd par exemple, 2 users ont le mm mdp. 
+      .then(hash => { // Permet d'éviter de stocker en clair le mdp ds la database et de créer une empreinte unique
         const user = new User({
           email: req.body.email,
           password: hash
