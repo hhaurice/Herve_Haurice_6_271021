@@ -4,6 +4,7 @@
 
 const express = require("express");
 const mongoose = require("mongoose");
+const expressValidator = require('express-validator')
 const userRoutes = require("./routes/user");
 const sauceRoutes = require("./routes/sauce");
 const path = require("path") // nous permets d'accéder au path de notre serveur
@@ -23,6 +24,7 @@ mongoose.connect("mongodb+srv://hhaurice:ocprojet6@cluster0.izb74.mongodb.net/my
   });
 
 app.use(express.json())
+app.use(expressValidator)
 
 app.use("/images", express.static(path.join(__dirname, "images"))); // Indique qu'il faut gérer la ressources images de manière statique pour toute requête vers la route /images
 
