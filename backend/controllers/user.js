@@ -13,9 +13,9 @@ exports.signup = (req, res, next) => {
         });
         user.save()
           .then(() => res.status(201).json({ message: 'Utilisateur créé avec succès!' }))
-          .catch(error => res.status(400).json({error }));
+          .catch(error => res.status(400).json({ error }));
       })
-      .catch(error => res.status(500).json({error}));
+      .catch(error => res.status(500).json({ error }));
   };
 
 
@@ -23,12 +23,12 @@ exports.signup = (req, res, next) => {
     User.findOne({ email: req.body.email })
       .then(user => {
         if (!user) {
-          return res.status(401).json({ error: "Utilisateur non trouvé!!" });
+          return res.status(401).json({ error });
         }
         bcrypt.compare(req.body.password, user.password)
           .then(valid => {
             if (!valid) {
-              return res.status(401).json({ error: "Mot de passe incorrect" });
+              return res.status(401).json({ error });
             }
             res.status(200).json({ // Pour une bonne connexion
               userId: user._id,
@@ -41,5 +41,5 @@ exports.signup = (req, res, next) => {
           })
           .catch(error => res.status(500).json({ error }));
       })
-      .catch(error => res.status(500).json({ message: "Erreur du serveur!" }));
+      .catch(error => res.status(500).json({ error }));
   };
