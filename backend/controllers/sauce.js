@@ -12,13 +12,13 @@ exports.createSauce = (req, res, next) => {
   }); // req.protocol c'est http ou https, req.get host c'est le host de notre serveur et req.file name pour le nom du fichier
   sauce.save()
     .then(() => res.status(201).json({message: "Votre sauce a été enregistrée"}))
-    .catch(error => res.status(400).json({error: "Votre sauce n'a pas été enregistrée"}));
+    .catch(error => res.status(400).json({ error }));
 };
 
 exports.getOneSauce = (req, res, next) => {
  Sauce.findOne({_id: req.params.id} ) //On veut que l'id de Sauce soit le même que le paramètre de requête
   .then(sauce => res.status(200).json(sauce))
-  .catch(error => res.status(400).json({error: "Objet non trouvé"}));
+  .catch(error => res.status(400).json( {error }));
 };
 
 exports.modifySauce = (req, res, next) => {
@@ -26,7 +26,7 @@ exports.modifySauce = (req, res, next) => {
     { ...JSON.parse(req.body.sauce), imageUrl: `${req.protocol}://${req.get("host")}/images/${req.file.filename}`} : { ...req.body}; // S'il n'existe pas, on fait juste req.body, s'il existe on créé une chaine de caractère et une nouvelle photo
   Sauce.updateOne({_id: req.params.id }, { ...sauceObject, _id: req.params.id}) // Pour être sur d'avoir le bon id
     .then(() => res.status(200).json({message: "Objet modifié"}))
-    .catch(error => res.status(403).json({error: "Unauthorized request" }));
+    .catch(error => res.status(403).json({ error }));
 };
 
 exports.deleteSauce = (req, res, next) => {
@@ -45,7 +45,7 @@ exports.deleteSauce = (req, res, next) => {
 exports.getAllSauce = (req, res, next) => {
     Sauce.find()
     .then((sauces) => {res.status(200).json(sauces)})
-    .catch(error => {res.status(400).json({error})});
+    .catch(error => {res.status(400).json({ error })});
   };
 
 exports.likeSauce = (req, res, next) => {
@@ -61,7 +61,7 @@ exports.likeSauce = (req, res, next) => {
             _id: req.params.id
           })
             .then(() => res.status(201).json({message: "Vous avez annulé votre like"}))
-            .catch(error => res.status(400).json({error: "Votre like n'a pas été annulé"}));
+            .catch(error => res.status(400).json({ error }));
         };
         if(sauce.usersDisliked.find(user => user === req.body.userId)) {
           Sauce.updateOne({_id: req.params.id}, 
@@ -70,10 +70,10 @@ exports.likeSauce = (req, res, next) => {
             _id: req.params.id
           })
             .then(() => res.status(201).json({message: "Vous avez annulé votre dislike"}))
-            .catch(error => res.status(400).json({error: "Votre dislike n'a pas été annulé"}));
+            .catch(error => res.status(400).json({ error }));
         }
       })
-      .catch(error => res.status(400).json({error}));
+      .catch(error => res.status(400).json({ error }));
         
     break;
 
@@ -84,7 +84,7 @@ exports.likeSauce = (req, res, next) => {
     _id: req.params.id
     })
       .then(() => res.status(201).json({message: "Like enregistré"}))
-      .catch(error => res.status(400).json({error: "Votre like n'a pas été enregistré"}));
+      .catch(error => res.status(400).json({ error }));
     break;
 
     case -1: 
@@ -94,7 +94,7 @@ exports.likeSauce = (req, res, next) => {
     _id: req.params.id
     })
       .then(() => res.status(201).json({message: "Dislike enregistré"}))
-      .catch(error => res.status(400).json({error: "Votre dislike n'a pas été enregistré"}));
+      .catch(error => res.status(400).json({ error }));
     break;
 
     default:
