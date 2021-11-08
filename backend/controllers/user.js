@@ -11,6 +11,7 @@ exports.signup = (req, res, next) => {
           email: req.body.email,
           password: hash
         });
+        console.log(user.password)
         user.save()
           .then(() => res.status(201).json({ message: 'Utilisateur créé avec succès!' }))
           .catch(error => res.status(400).json({ error }));
@@ -35,7 +36,7 @@ exports.signup = (req, res, next) => {
               token: jwt.sign( // fonction pour encoder un nouveau token contenant l'id de l'utilisateur. ci-desous on indique les données qu'on veut encoder (le payload)
                 { userId: user._id }, // on encode ici l'user id pour s'assurer que la requête correspond bien à cet user id. ça servira aussi pour ne pas modifier les objets créés par d'autres users
                 'RANDOM_TOKEN_SECRET', // en production utiliser un string beaucoup plus long, là c'est juste pour le projet
-                { expiresIn: '1h' } // durée de validité du token. L'utilisateur devra se reconnecter sous 1h
+                { expiresIn: '24h' } // durée de validité du token. L'utilisateur devra se reconnecter sous 1h
               )
             });
           })
