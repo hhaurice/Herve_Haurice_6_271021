@@ -15,6 +15,8 @@ In the 1st terminal, go to backend directory `cd backend`, rename terminal backe
 Open another terminal,  go to frontend directory `cd frontend`, rename terminal frontend and `run npm start`. 
 This should launch your browser automatically. 
 
+Once the application is launched, create a profile by entering an email address. Password needs to be at least with 8 characters, with at least a symbol, a number and caps. 
+
 ### Precaution ###
 
 As Nodemon plugin is not installed and didn't work on this project, any modification that are made locally on the server are not updated automatically. 
